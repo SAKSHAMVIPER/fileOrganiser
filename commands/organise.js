@@ -21,7 +21,7 @@ if(!fs.existsSync(organiseFolder)){
 }
 
 for(let i=0;i<entities.length;i++){
- let file = path.join(srcPath,entities[i]);
+    let file = path.join(srcPath,entities[i]);
  if(fs.lstatSync(file).isFile()){
 let type = checkType(file);
 let typeFolder=path.join(organiseFolder,type);
@@ -39,7 +39,7 @@ fs.copyFileSync(src,dest);
 
 function checkType(file){
     for(let type in types){
-        for(let ext of types){
+        for(let ext of types[type]){
             if(path.extname(file).split(".")[1] == ext){
                 return type;
             }

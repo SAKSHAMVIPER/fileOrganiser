@@ -29,7 +29,7 @@ let typeFolder=path.join(organiseFolder,type);
 if(!fs.existsSync(typeFolder)){
     fs.mkdirSync(typeFolder);
 }
-let src= path.join(srcPath.entitoies[i]);
+let src= path.join(srcPath.entities[i]);
 let dest = path.join(typeFolder,entities[i]);
 fs.copyFileSync(src,dest);
  }

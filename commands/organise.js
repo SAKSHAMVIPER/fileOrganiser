@@ -21,7 +21,7 @@ if(!fs.existsSync(organiseFolder)){
 }
 
 for(let i=0;i<entities.length;i++){
- let file = entities[i];
+ let file = path.join(srcPath,entities[i]);
  if(fs.lstatSync(file).isFile()){
 let type = checkType(file);
 let typeFolder=path.join(organiseFolder,type);

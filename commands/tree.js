@@ -1,20 +1,21 @@
 let fs = require("fs");
 let path = require("path");
+function treeFunction(srcpath){
+     if(srcpath == undefined){
+         srcpath = process.cwd();
+     }
 
-function treeFunction(srcPath){
-    let baseName=path.basename(srcPath);
-    console.log(baseName);
-    console.log("\n\t"+"└──");
-    
-    let content=fs.readdirSync(srcPath);
-    let allEntities="";
-    for(let i=0;i<content.length;i++){
-        allEntities+='\n\t'+"├──"+content[i];
-        // console.log(content[i]);
-    }
-    console.log(allEntities);
+     let content = fs.readdirSync(srcpath);
+    let basename = path.basename(srcpath);;
+     let completepath = "|-----"+basename;
+
+
+     for(let i =0;i<content.length;i++){
+             completepath = completepath + "\n\t" +"|----" + content[i];
+     }
+     console.log(completepath);
 }
 
-module.exports={
-treeFn : treeFunction
+module.exports ={
+    treefn : treeFunction
 }

@@ -1,10 +1,10 @@
-function helpFunction(){
-    console.log(`list of all commands
-    1. mode main.js tree <pathname>
-    2. node main.js  organise <pathname>
-    3. node main.js help`);
-}
-
-module.exports={
-    helpfn:helpFunction
-}
+function hobj(){
+    console.log("list all the commamands");
+    console.log(" 1-> node main.js help");
+    console.log(" 2-> node main.js tree (path)");
+    console.log(" 3-> node main.js organise(path)");
+    }
+    
+    module.exports={
+      hl : hobj
+    }

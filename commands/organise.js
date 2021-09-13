@@ -1,6 +1,6 @@
 let fs = require("fs");
-const { type } = require("os");
 let path = require("path");
+
 
 let types={
     media: ["mp4","mkv","mp3"],
@@ -10,46 +10,58 @@ let types={
     pictures: ["png","jpg","jpeg"]
 }
 
-function organiseFunction(srcPath){
-
-
-let entities=fs.readdirSync(srcPath);
-let organiseFolder = path.join(srcPath,"organisedFiles");
-
-if(!fs.existsSync(organiseFolder)){
-    fs.mkdirSync(organiseFolder);
-}
-
-for(let i=0;i<entities.length;i++){
-    let file = path.join(srcPath,entities[i]);
- if(fs.lstatSync(file).isFile()){
-let type = checkType(file);
-let typeFolder=path.join(organiseFolder,type);
-
-if(!fs.existsSync(typeFolder)){
-    fs.mkdirSync(typeFolder);
-}
-let src= path.join(srcPath.entities[i]);
-let dest = path.join(typeFolder,entities[i]);
-fs.copyFileSync(src,dest);
- }
-
-}
-}
-
-function checkType(file){
-    for(let type in types){
-        for(let ext of types[type]){
-            if(path.extname(file).split(".")[1] == ext){
-                return type;
-            }
-        }
+function organisefunction(srcPath){
+    if(srcPath == undefined){
+        srcPath = process.cwd();
     }
-    return "others";
+
+    let firstPath = path.join(srcPath,"organizedFiles");
+   if(fs.existsSync(firstPath) == false){
+       fs.mkdirSync(firstPath);
+   }
+
+   let contents = fs.readdirSync(srcPath);
+   for(let i =0;i<contents.length;i++){
+
+   let fullPath = path.join(srcPath,contents[i]);
+    if(fs.lstatSync(fullPath).isFile() == true){
+          let foldername = checkextensionsTellfolder(contents[i]);
+        
+        copyfiletodest(foldername,fullPath,srcPath);
+
+    }
+
+   }
+
 }
 
-// C:\Users\SAKSHAM\Downloads
+function copyfiletodest(foldername,fullPath,srcPath){
+let destfolder = path.join(srcPath,"organizedFiles",foldername);
+if(fs.existsSync(destfolder) == false){
+    fs.mkdirSync(destfolder);
+}
+
+let originalfilename = path.basename(fullPath);
+let destfile = path.join(destfolder,originalfilename);
+fs.copyFileSync(fullPath,destfile);
+}
+
+function checkextensionsTellfolder(filename){
+   let extName = path.extname(filename);
+   extName = extName.slice(1);
+   for(let key in types){
+    for(let i=0;i<types[key].length;i++)
+    {if(types[key][i] == extName){
+     return key;
+    }
+   }
+}
+return "others";
+}
 
 module.exports={
-    organiseFn : organiseFunction
-    }
+    organisefn : organisefunction
+}
+
+
+//input = node main.js organiser "C:\Users\SAKSHAM\Downloads"
